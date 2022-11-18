@@ -2,37 +2,30 @@ import 'package:module_business/src/item_model.dart';
 
 class ListState{
   final int currentPage;
-  const ListState(this.currentPage);
+  final List<ItemModel> _data;
+  List<ItemModel> get data => List.unmodifiable(_data);
+  const ListState(this.currentPage,this._data);
 }
 
 class ListInitState extends ListState{
-  ListInitState():super(0);
+  ListInitState():super(0,[]);
 }
 
 class LoadingState extends ListState{
-  final List<ItemModel> _data;
-
-  const LoadingState(this._data,super.currentPage);
-  List<ItemModel> get data => List.unmodifiable(_data);
+  const LoadingState(super.currentPage,super._data);
 }
 
 class GotDataState extends ListState{
-  final List<ItemModel> _data;
-  const GotDataState(this._data, super.currentPage);
-  List<ItemModel> get data => List.unmodifiable(_data);
+  const GotDataState(super.currentPage,super._data);
 }
 
 class ItemRemovingState extends ListState{
   final int id;
-  final List<ItemModel> _data;
-  const ItemRemovingState(this.id,super.currentPage, this._data);
-  List<ItemModel> get data => List.unmodifiable(_data);
+  const ItemRemovingState(this.id,super.currentPage, super._data);
 }
 
 class ItemRemovedState extends ListState{
-  final List<ItemModel> _data;
-  const ItemRemovedState(this._data, super.currentPage);
-  List<ItemModel> get data => List.unmodifiable(_data);
+  const ItemRemovedState(super.currentPage,super._data);
 }
 
 //temperature states

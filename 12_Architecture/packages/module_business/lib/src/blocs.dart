@@ -7,8 +7,8 @@ import 'item_model.dart';
 
 class ListBloc extends Bloc<ListEvent,ListState> {
   final Repository repository;
-  final List<ItemModel> _items=[];
-  List<ItemModel> get __items =>List.unmodifiable(_items);
+  //final List<ItemModel> _items=[];
+  //List<ItemModel> get __items =>List.unmodifiable(_items);
   ListBloc(this.repository):super(ListInitState()){
     on<GetItemsEvent>(_onGetItems);
     on<RemoveItemEvent>(_onRemoveItem);
@@ -17,29 +17,30 @@ class ListBloc extends Bloc<ListEvent,ListState> {
     if (state is ListInitState){
       final resp=await repository.getData(0);
       final items=_parseItems(resp);
-      _items.clear();
-      _items.addAll(items);
-      emitter.call(GotDataState(__items,0));
+      //_items.clear();
+      //_items.addAll(items);
+      emitter.call(const GotDataState(0,[]));
     } else {
       final resp=await repository.getData(event.page);
       final newItems=_parseItems(resp);
-      _items.addAll(newItems);
-      emitter.call(GotDataState(__items,event.page));
+      final newList=state.data.toList()..addAll(newItems);
+      emitter.call(GotDataState(event.page,newList));
     }
   }
   Future<void> _onRemoveItem(RemoveItemEvent event,Emitter<ListState> emitter) async {
-    final item=_items.firstWhere((item) => item.id==event.id);
+    final items=state.data.toList();
+    final item=items.firstWhere((item) => item.id==event.id);
     //item.isDeleting=true;
-    final index=_items.indexOf(item);
-    _items.removeAt(index);
+    final index=items.indexOf(item);
+    items.removeAt(index);
     final newItem=item.copyWith(isDeleting:true);
-    _items.insert(index, newItem);
+    items.insert(index, newItem);
     //_items.replaceRange(index, index,[item.copyWith(isDeleting:true)]);
-    emitter.call(ItemRemovingState(event.id,state.currentPage,__items));
+    emitter.call(ItemRemovingState(event.id,state.currentPage,items));
     final resp=await repository.deleteItem(event.id);
-    _items.remove(newItem);
+    items.remove(newItem);
     final curPage=(state is GotDataState)? state.currentPage:0;
-    emitter.call(ItemRemovedState(__items,state.currentPage));
+    emitter.call(ItemRemovedState(state.currentPage,items));
   }
 
   List<ItemModel> _parseItems(Map<String,dynamic> data){
