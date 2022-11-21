@@ -141,6 +141,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.4"
+  dio:
+    dependency: transitive
+    description:
+      name: dio
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.6"
   fake_async:
     dependency: transitive
     description:
@@ -277,6 +284,13 @@ packages:
       relative: true
     source: path
     version: "1.0.0+1"
+  module_codegen:
+    dependency: "direct main"
+    description:
+      path: "packages/module_codegen"
+      relative: true
+    source: path
+    version: "1.0.0+1"
   module_data:
     dependency: transitive
     description:
@@ -346,7 +360,7 @@ packages:
       name: pub_updater
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.2"
+    version: "0.2.3"
   pubspec_parse:
     dependency: transitive
     description:

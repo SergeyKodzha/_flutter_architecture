@@ -33,6 +33,8 @@ dependencies:
     sdk: flutter
   module_business:
     path: packages/module_business
+  module_codegen:
+      path: packages/module_codegen
   flutter_bloc: ^8.0.0
 
 

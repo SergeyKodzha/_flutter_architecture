@@ -1,6 +1,8 @@
 import 'package:get_it/get_it.dart';
+import 'package:module_business/src/bloc/blocs/list_bloc.dart';
+import 'package:module_business/src/bloc/blocs/temperature_bloc.dart';
 import 'package:module_data/module_data.dart';
-import 'blocs.dart';
+
 
 class BlocFactory{
   static final _getIt=GetIt.I;
