@@ -148,30 +148,5 @@ class _MyHomePageState extends State<MyHomePage> {
             ),);
       },
     );
-    /*
-    if (_sheetController == null) {
-      _sheetController =
-          _skaffoldKey.currentState?.showBottomSheet((context) => Container(
-              height: 240,
-              //color: Colors.greenAccent,
-              child: Center(
-                  child: BlocBuilder<TemperatureBloc, TemperatureState>(
-                bloc: BlocProvider.of<TemperatureBloc>(context),
-                builder: (context, state) {
-                  if (state is RequestingTemperatureState) {
-                    return const CircularProgressIndicator();
-                  } else {
-                    return const Text(
-                      "Bottom Sheet",
-                      style: TextStyle(fontSize: 32),
-                    );
-                  }
-                },
-              ))));
-    } else {
-      _sheetController?.close();
-      _sheetController = null;
-    }
-     */
   }
 }
